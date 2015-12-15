@@ -14,10 +14,10 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "625E66821C1FF97E0027C288"
-               BuildableName = "SwiftFlow.framework"
-               BlueprintName = "SwiftFlow"
-               ReferencedContainer = "container:SwiftFlow.xcodeproj">
+               BlueprintIdentifier = "625E673C1C200A5D0027C288"
+               BuildableName = "SwiftFlowCounterExample.app"
+               BlueprintName = "SwiftFlowCounterExample"
+               ReferencedContainer = "container:SwiftFlowCounterExample.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -26,27 +26,16 @@
       buildConfiguration = "Debug"
       selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
-      shouldUseLaunchSchemeArgsEnv = "YES"
-      codeCoverageEnabled = "YES">
+      shouldUseLaunchSchemeArgsEnv = "YES">
       <Testables>
-         <TestableReference
-            skipped = "NO">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "625E66991C1FFA3C0027C288"
-               BuildableName = "SwiftFlowTests.xctest"
-               BlueprintName = "SwiftFlowTests"
-               ReferencedContainer = "container:SwiftFlow.xcodeproj">
-            </BuildableReference>
-         </TestableReference>
       </Testables>
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "625E66821C1FF97E0027C288"
-            BuildableName = "SwiftFlow.framework"
-            BlueprintName = "SwiftFlow"
-            ReferencedContainer = "container:SwiftFlow.xcodeproj">
+            BlueprintIdentifier = "625E673C1C200A5D0027C288"
+            BuildableName = "SwiftFlowCounterExample.app"
+            BlueprintName = "SwiftFlowCounterExample"
+            ReferencedContainer = "container:SwiftFlowCounterExample.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
       <AdditionalOptions>
@@ -62,15 +51,16 @@
       debugDocumentVersioning = "YES"
       debugServiceExtension = "internal"
       allowLocationSimulation = "YES">
-      <MacroExpansion>
+      <BuildableProductRunnable
+         runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "625E66821C1FF97E0027C288"
-            BuildableName = "SwiftFlow.framework"
-            BlueprintName = "SwiftFlow"
-            ReferencedContainer = "container:SwiftFlow.xcodeproj">
+            BlueprintIdentifier = "625E673C1C200A5D0027C288"
+            BuildableName = "SwiftFlowCounterExample.app"
+            BlueprintName = "SwiftFlowCounterExample"
+            ReferencedContainer = "container:SwiftFlowCounterExample.xcodeproj">
          </BuildableReference>
-      </MacroExpansion>
+      </BuildableProductRunnable>
       <AdditionalOptions>
       </AdditionalOptions>
    </LaunchAction>
@@ -80,15 +70,16 @@
       savedToolIdentifier = ""
       useCustomWorkingDirectory = "NO"
       debugDocumentVersioning = "YES">
-      <MacroExpansion>
+      <BuildableProductRunnable
+         runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "625E66821C1FF97E0027C288"
-            BuildableName = "SwiftFlow.framework"
-            BlueprintName = "SwiftFlow"
-            ReferencedContainer = "container:SwiftFlow.xcodeproj">
+            BlueprintIdentifier = "625E673C1C200A5D0027C288"
+            BuildableName = "SwiftFlowCounterExample.app"
+            BlueprintName = "SwiftFlowCounterExample"
+            ReferencedContainer = "container:SwiftFlowCounterExample.xcodeproj">
          </BuildableReference>
-      </MacroExpansion>
+      </BuildableProductRunnable>
    </ProfileAction>
    <AnalyzeAction
       buildConfiguration = "Debug">
