@@ -538,6 +538,7 @@
 				625E67511C200A5D0027C288 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
