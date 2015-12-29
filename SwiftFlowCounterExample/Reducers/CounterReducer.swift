@@ -12,10 +12,10 @@ import SwiftFlow
 struct CounterReducer: Reducer {
 
     func handleAction(var state: AppState, action: Action) -> AppState {
-        switch action.type {
-        case CounterActionIncrease:
+        switch action {
+        case _ as CounterActionIncrease:
             state.counter += 1
-        case CounterActionDecrease:
+        case _ as CounterActionDecrease:
             state.counter -= 1
         default:
             break

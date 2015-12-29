@@ -11,8 +11,8 @@ import SwiftFlow
 import SwiftFlowRecorder
 import SwiftFlowRouter
 
-var mainStore = RecordingMainStore(reducer: MainReducer([CounterReducer(), NavigationReducer()]),
-    appState: AppState(), recording: "recording.json")
+var mainStore = RecordingMainStore(reducer: CombinedReducer([CounterReducer(), NavigationReducer()]),
+    appState: AppState(), typeMaps:[counterActionTypeMap, SwiftFlowRouter.typeMap], recording: "recording.json")
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {

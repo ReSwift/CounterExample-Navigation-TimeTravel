@@ -30,13 +30,13 @@ class CounterViewController: UIViewController, StoreSubscriber, Routable {
 
     @IBAction func increaseButtonTapped(sender: UIButton) {
         mainStore.dispatch(
-            Action(CounterActionIncrease)
+            CounterActionIncrease()
         )
     }
 
     @IBAction func decreaseButtonTapped(sender: UIButton) {
         mainStore.dispatch(
-            Action(CounterActionDecrease)
+            CounterActionDecrease()
         )
     }
     
