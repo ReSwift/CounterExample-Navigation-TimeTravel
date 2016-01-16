@@ -12,12 +12,12 @@ import SwiftFlowRecorder
 import SwiftFlowRouter
 
 var mainStore = RecordingMainStore(reducer: CombinedReducer([CounterReducer(), NavigationReducer()]),
-    appState: AppState(), typeMaps:[counterActionTypeMap, SwiftFlowRouter.typeMap], recording: "recording.json")
+    state: AppState(), typeMaps:[counterActionTypeMap, SwiftFlowRouter.typeMap], recording: "recording.json")
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
-    var router: Router!
+    var router: Router<AppState>!
     var window: UIWindow?
 
     var rootViewController: Routable!
