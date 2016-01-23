@@ -7,9 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		257490441C50B9A000265A28 /* ReSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 257490221C50B97800265A28 /* ReSwift.framework */; };
-		257490451C50B9A700265A28 /* ReSwiftRouter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 257490381C50B98300265A28 /* ReSwiftRouter.framework */; };
-		257490461C50B9B200265A28 /* ReSwiftRecorder.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 257490411C50B98D00265A28 /* ReSwiftRecorder.framework */; };
 		2574906A1C50BAD500265A28 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 257490661C50BAD500265A28 /* LaunchScreen.storyboard */; };
 		2574906B1C50BAD500265A28 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 257490681C50BAD500265A28 /* Main.storyboard */; };
 		2574906D1C50BADE00265A28 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2574906C1C50BADE00265A28 /* Assets.xcassets */; };
@@ -20,6 +17,11 @@
 		2574907F1C50BB0300265A28 /* CounterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 257490791C50BB0300265A28 /* CounterViewController.swift */; };
 		257490801C50BB0300265A28 /* InfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2574907A1C50BB0300265A28 /* InfoViewController.swift */; };
 		257490811C50BB0300265A28 /* StatsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2574907B1C50BB0300265A28 /* StatsViewController.swift */; };
+		629F63451C5445FB009CBF92 /* ReSwiftRouter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 257490381C50B98300265A28 /* ReSwiftRouter.framework */; };
+		629F63461C5445FB009CBF92 /* ReSwiftRouter.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 257490381C50B98300265A28 /* ReSwiftRouter.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		629F63491C544606009CBF92 /* ReSwiftRecorder.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 257490411C50B98D00265A28 /* ReSwiftRecorder.framework */; };
+		629F634A1C544606009CBF92 /* ReSwiftRecorder.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 257490411C50B98D00265A28 /* ReSwiftRecorder.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		629F634D1C54461E009CBF92 /* ReSwift.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 257490221C50B97800265A28 /* ReSwift.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -128,6 +130,20 @@
 			remoteGlobalIDString = 6209C0911C5428DE004E6B66;
 			remoteInfo = "ReSwiftRouter-OSXTests";
 		};
+		629F63471C5445FC009CBF92 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 2574902F1C50B98200265A28 /* ReSwiftRouter.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 625E66CC1C1FFE280027C288;
+			remoteInfo = "ReSwiftRouter-iOS";
+		};
+		629F634B1C544606009CBF92 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 2574903B1C50B98D00265A28 /* ReSwiftRecorder.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 625E67141C2007B10027C288;
+			remoteInfo = ReSwiftRecorder;
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -137,6 +153,9 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
+				629F634D1C54461E009CBF92 /* ReSwift.framework in Embed Frameworks */,
+				629F63461C5445FB009CBF92 /* ReSwiftRouter.framework in Embed Frameworks */,
+				629F634A1C544606009CBF92 /* ReSwiftRecorder.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -166,9 +185,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				257490441C50B9A000265A28 /* ReSwift.framework in Frameworks */,
-				257490451C50B9A700265A28 /* ReSwiftRouter.framework in Frameworks */,
-				257490461C50B9B200265A28 /* ReSwiftRecorder.framework in Frameworks */,
+				629F63451C5445FB009CBF92 /* ReSwiftRouter.framework in Frameworks */,
+				629F63491C544606009CBF92 /* ReSwiftRecorder.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -308,6 +326,8 @@
 			buildRules = (
 			);
 			dependencies = (
+				629F63481C5445FC009CBF92 /* PBXTargetDependency */,
+				629F634C1C544606009CBF92 /* PBXTargetDependency */,
 			);
 			name = ReSwiftCounterExample;
 			productName = SwiftFlowCounterExample;
@@ -498,6 +518,19 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		629F63481C5445FC009CBF92 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = "ReSwiftRouter-iOS";
+			targetProxy = 629F63471C5445FC009CBF92 /* PBXContainerItemProxy */;
+		};
+		629F634C1C544606009CBF92 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = ReSwiftRecorder;
+			targetProxy = 629F634B1C544606009CBF92 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		257490661C50BAD500265A28 /* LaunchScreen.storyboard */ = {
