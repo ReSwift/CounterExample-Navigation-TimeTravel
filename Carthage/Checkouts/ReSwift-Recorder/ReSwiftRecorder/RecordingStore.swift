@@ -11,12 +11,12 @@ import ReSwift
 
 public typealias TypeMap = [String: StandardActionConvertible.Type]
 
-public class RecordingMainStore<State: StateType>: MainStore<State> {
+public class RecordingMainStore<State: StateType>: Store<State> {
 
     typealias RecordedActions = [[String : AnyObject]]
 
     var recordedActions: RecordedActions = []
-    var initialState: State
+    var initialState: State!
     var computedStates: [State] = []
     var actionsToReplay: Int?
     let recordingPath: String?
@@ -54,12 +54,14 @@ public class RecordingMainStore<State: StateType>: MainStore<State> {
         }
     }
 
-    public init(reducer: AnyReducer, state: State, typeMaps: [TypeMap], recording: String? = nil) {
-        self.initialState = state
-        self.computedStates.append(initialState)
+    public init(reducer: AnyReducer, state: State?, typeMaps: [TypeMap], recording: String? = nil) {
+
         self.recordingPath = recording
 
         super.init(reducer: reducer, state: state, middleware: [])
+
+        self.initialState = self.state
+        self.computedStates.append(initialState)
 
         // merge all typemaps into one
         typeMaps.forEach { typeMap in
@@ -95,7 +97,7 @@ public class RecordingMainStore<State: StateType>: MainStore<State> {
         }
 
         super.dispatch(action) { newState in
-            self.computedStates.append(newState as! State)
+            self.computedStates.append(newState)
             callback?(newState)
         }
 
@@ -120,7 +122,7 @@ public class RecordingMainStore<State: StateType>: MainStore<State> {
             storeActions(recordedActions)
         } else {
             print("ReSwiftRecorder Warning: Could not log following action because it does not " +
-                    "conform to StandardActionConvertible: \(action)")
+                "conform to StandardActionConvertible: \(action)")
         }
     }
 
@@ -153,10 +155,10 @@ public class RecordingMainStore<State: StateType>: MainStore<State> {
             .URLForDirectory(.DocumentDirectory, inDomain:
                 .UserDomainMask, appropriateForURL: nil, create: true)
 
-//        let path = documentDirectoryURL?
-//            .URLByAppendingPathComponent("recording_\(timestamp).json")
+        //        let path = documentDirectoryURL?
+        //            .URLByAppendingPathComponent("recording_\(timestamp).json")
         let path = documentDirectoryURL?
-                    .URLByAppendingPathComponent("recording.json")
+            .URLByAppendingPathComponent("recording.json")
 
         print("Recording to path: \(path)")
         return path
@@ -165,7 +167,7 @@ public class RecordingMainStore<State: StateType>: MainStore<State> {
     lazy var documentsDirectory: NSURL? = {
         let documentDirectoryURL = try? NSFileManager.defaultManager()
             .URLForDirectory(.DocumentDirectory, inDomain:
-            .UserDomainMask, appropriateForURL: nil, create: true)
+                .UserDomainMask, appropriateForURL: nil, create: true)
 
         return documentDirectoryURL
     }()
@@ -174,11 +176,7 @@ public class RecordingMainStore<State: StateType>: MainStore<State> {
         let data = try! NSJSONSerialization.dataWithJSONObject(actions, options: .PrettyPrinted)
 
         if let path = recordingDirectory {
-            do {
-                try data.writeToURL(path, atomically: true)
-            } catch {
-                /* error handling here */
-            }
+            data.writeToURL(path, atomically: true)
         }
     }
 
@@ -208,13 +206,13 @@ public class RecordingMainStore<State: StateType>: MainStore<State> {
             for i in 0..<state {
                 dispatchRecorded(actions[i]) { newState in
                     self.actionsToReplay = self.actionsToReplay! - 1
-                    self.computedStates.append(newState as! State)
+                    self.computedStates.append(newState)
                 }
             }
         } else {
             self.state = computedStates[state]
         }
-
+        
     }
-
+    
 }

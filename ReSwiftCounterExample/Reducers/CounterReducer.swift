@@ -8,20 +8,30 @@
 
 import Foundation
 import ReSwift
+import ReSwiftRouter
 
-struct CounterReducer: Reducer {
+struct AppReducer: Reducer {
 
-    func handleAction(var state: AppState, action: Action) -> AppState {
-        switch action {
-        case _ as CounterActionIncrease:
-            state.counter += 1
-        case _ as CounterActionDecrease:
-            state.counter -= 1
-        default:
-            break
-        }
-
-        return state
+    func handleAction(action: Action, state: AppState?) -> AppState {
+        return AppState(
+            counter: counterReducer(action, counter: state?.counter),
+            navigationState: NavigationReducer.handleAction(action, state: state?.navigationState)
+        )
     }
 
+}
+
+func counterReducer(action: Action, counter: Int?) -> Int {
+    var counter = counter ?? 0
+
+    switch action {
+    case _ as CounterActionIncrease:
+        counter += 1
+    case _ as CounterActionDecrease:
+        counter -= 1
+    default:
+        break
+    }
+
+    return counter
 }

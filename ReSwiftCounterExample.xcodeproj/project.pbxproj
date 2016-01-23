@@ -93,6 +93,41 @@
 			remoteGlobalIDString = 625E67151C2007B10027C288;
 			remoteInfo = ReSwiftRecorder;
 		};
+		629F633B1C5445A4009CBF92 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 2574902F1C50B98200265A28 /* ReSwiftRouter.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 6209C04B1C54256F004E6B66;
+			remoteInfo = "ReSwiftRouter-watchOS";
+		};
+		629F633D1C5445A4009CBF92 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 2574902F1C50B98200265A28 /* ReSwiftRouter.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 6209C0611C5427E0004E6B66;
+			remoteInfo = "ReSwiftRouter-tvOS";
+		};
+		629F633F1C5445A4009CBF92 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 2574902F1C50B98200265A28 /* ReSwiftRouter.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 6209C06A1C5427E0004E6B66;
+			remoteInfo = "ReSwiftRouter-tvOSTests";
+		};
+		629F63411C5445A4009CBF92 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 2574902F1C50B98200265A28 /* ReSwiftRouter.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 6209C0881C5428DE004E6B66;
+			remoteInfo = "ReSwiftRouter-OSX";
+		};
+		629F63431C5445A4009CBF92 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 2574902F1C50B98200265A28 /* ReSwiftRouter.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 6209C0911C5428DE004E6B66;
+			remoteInfo = "ReSwiftRouter-OSXTests";
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -158,7 +193,12 @@
 			isa = PBXGroup;
 			children = (
 				257490381C50B98300265A28 /* ReSwiftRouter.framework */,
-				2574903A1C50B98300265A28 /* ReSwiftRouterTests.xctest */,
+				2574903A1C50B98300265A28 /* ReSwiftRouterTests-iOS.xctest */,
+				629F633C1C5445A4009CBF92 /* ReSwiftRouter.framework */,
+				629F633E1C5445A4009CBF92 /* ReSwiftRouter.framework */,
+				629F63401C5445A4009CBF92 /* ReSwiftRouter-tvOSTests.xctest */,
+				629F63421C5445A4009CBF92 /* ReSwiftRouter.framework */,
+				629F63441C5445A4009CBF92 /* ReSwiftRouter.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -378,10 +418,10 @@
 			remoteRef = 257490371C50B98300265A28 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		2574903A1C50B98300265A28 /* ReSwiftRouterTests.xctest */ = {
+		2574903A1C50B98300265A28 /* ReSwiftRouterTests-iOS.xctest */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.cfbundle;
-			path = ReSwiftRouterTests.xctest;
+			path = "ReSwiftRouterTests-iOS.xctest";
 			remoteRef = 257490391C50B98300265A28 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
@@ -390,6 +430,41 @@
 			fileType = wrapper.framework;
 			path = ReSwiftRecorder.framework;
 			remoteRef = 257490401C50B98D00265A28 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		629F633C1C5445A4009CBF92 /* ReSwiftRouter.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = ReSwiftRouter.framework;
+			remoteRef = 629F633B1C5445A4009CBF92 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		629F633E1C5445A4009CBF92 /* ReSwiftRouter.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = ReSwiftRouter.framework;
+			remoteRef = 629F633D1C5445A4009CBF92 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		629F63401C5445A4009CBF92 /* ReSwiftRouter-tvOSTests.xctest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = "ReSwiftRouter-tvOSTests.xctest";
+			remoteRef = 629F633F1C5445A4009CBF92 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		629F63421C5445A4009CBF92 /* ReSwiftRouter.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = ReSwiftRouter.framework;
+			remoteRef = 629F63411C5445A4009CBF92 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		629F63441C5445A4009CBF92 /* ReSwiftRouter.xctest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = ReSwiftRouter.xctest;
+			remoteRef = 629F63431C5445A4009CBF92 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 /* End PBXReferenceProxy section */

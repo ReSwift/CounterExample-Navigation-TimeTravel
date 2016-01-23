@@ -1,5 +1,6 @@
 [![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage) 
 [![](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/Swift-Flow/Swift-Flow/blob/master/LICENSE.md)
+![Platform support](https://img.shields.io/badge/platform-ios%20%7C%20osx%20%7C%20tvos%20%7C%20watchos-lightgrey.svg?style=flat-square)
 
 
 A declarative router for [ReSwift](https://github.com/ReSwift/ReSwift). Allows developers to declare routes in a similar manner as URLs are used on the web.
@@ -62,7 +63,22 @@ After you've initialized your store, create an instance of `Router`, passing in 
 router = Router(store: mainStore, rootRoutable: RootRoutable(routable: rootViewController))
 ```
 
-We'll discuss `Routable` in the next section.
+We'll discuss `Routable` in the next main section.
+
+##Calling the Navigation Reducer
+
+The `NavigationReducer` is provided as part of `ReSwiftRouter`. You need to call it from within your top-level reducer. Here's a simple example from the specs:
+
+```swift
+struct AppReducer: Reducer {
+    func handleAction(action: Action, state: FakeAppState?) -> FakeAppState {
+        return FakeAppState(
+            navigationState: NavigationReducer.handleAction(action, state: state?.navigationState)
+        )
+    }
+}
+```
+This will reducer will handle all routing relevant actions.
 
 #Implementing `Routable`
 

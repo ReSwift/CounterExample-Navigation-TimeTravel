@@ -6,16 +6,17 @@
 //  Copyright © 2015 DigiTales. All rights reserved.
 //
 
+import Foundation
 import ReSwift
 
 public class Router<State: StateType>: StoreSubscriber {
 
-    var store: MainStore<State>
+    var store: Store<State>
     var lastNavigationState = NavigationState()
     var routables: [Routable] = []
     let waitForRoutingCompletionQueue = dispatch_queue_create("WaitForRoutingCompletionQueue", nil)
 
-    public init(store: MainStore<State>, rootRoutable: Routable) {
+    public init(store: Store<State>, rootRoutable: Routable) {
         self.store = store
         self.routables.append(rootRoutable)
 
@@ -74,7 +75,7 @@ public class Router<State: StateType>: StoreSubscriber {
                 let result = dispatch_semaphore_wait(semaphore, waitUntil)
 
                 if result != 0 {
-                    assertionFailure("[ReSwiftRouter]: Router is stuck waiting for a" +
+                    assertionFailure("[SwiftFlowRouter]: Router is stuck waiting for a" +
                         " completion handler to be called. Ensure that you have called the " +
                         " completion handler in each Routable element.")
                 }

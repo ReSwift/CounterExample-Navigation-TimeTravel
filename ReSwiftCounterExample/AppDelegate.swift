@@ -11,8 +11,12 @@ import ReSwift
 import ReSwiftRecorder
 import ReSwiftRouter
 
-var mainStore = RecordingMainStore<AppState>(reducer: CombinedReducer([CounterReducer(), NavigationReducer()]),
-    state: AppState(), typeMaps:[counterActionTypeMap, ReSwiftRouter.typeMap], recording: "recording.json")
+var mainStore = RecordingMainStore<AppState>(
+        reducer: AppReducer(),
+        state: nil,
+        typeMaps:[counterActionTypeMap, ReSwiftRouter.typeMap],
+        recording: "recording.json"
+    )
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -38,15 +42,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         router = Router(store: mainStore, rootRoutable: RootRoutable(routable: rootViewController))
 
         mainStore.dispatch { state, store in
-
-            if let state = state as? HasNavigationState where
-                state.navigationState.route == [] {
+                if state.navigationState.route == [] {
                     return SetRouteAction(["TabBarViewController", StatsViewController.identifier,
                             InfoViewController.identifier])
-            } else {
-                return nil
-            }
+                } else {
+                    return nil
+                }
         }
+
 
 
         window = UIWindow(frame: UIScreen.mainScreen().bounds)

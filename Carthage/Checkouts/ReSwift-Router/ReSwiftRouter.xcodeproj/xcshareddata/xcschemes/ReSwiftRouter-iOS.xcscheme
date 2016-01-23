@@ -16,7 +16,7 @@
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "625E66CC1C1FFE280027C288"
                BuildableName = "ReSwiftRouter.framework"
-               BlueprintName = "ReSwiftRouter"
+               BlueprintName = "ReSwiftRouter-iOS"
                ReferencedContainer = "container:ReSwiftRouter.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -33,8 +33,8 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "625E66F01C2000EA0027C288"
-               BuildableName = "ReSwiftRouterTests.xctest"
-               BlueprintName = "ReSwiftRouterTests"
+               BuildableName = "ReSwiftRouterTests-iOS.xctest"
+               BlueprintName = "ReSwiftRouterTests-iOS"
                ReferencedContainer = "container:ReSwiftRouter.xcodeproj">
             </BuildableReference>
          </TestableReference>
@@ -44,7 +44,7 @@
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "625E66CC1C1FFE280027C288"
             BuildableName = "ReSwiftRouter.framework"
-            BlueprintName = "ReSwiftRouter"
+            BlueprintName = "ReSwiftRouter-iOS"
             ReferencedContainer = "container:ReSwiftRouter.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
@@ -66,7 +66,7 @@
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "625E66CC1C1FFE280027C288"
             BuildableName = "ReSwiftRouter.framework"
-            BlueprintName = "ReSwiftRouter"
+            BlueprintName = "ReSwiftRouter-iOS"
             ReferencedContainer = "container:ReSwiftRouter.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
@@ -84,7 +84,7 @@
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "625E66CC1C1FFE280027C288"
             BuildableName = "ReSwiftRouter.framework"
-            BlueprintName = "ReSwiftRouter"
+            BlueprintName = "ReSwiftRouter-iOS"
             ReferencedContainer = "container:ReSwiftRouter.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
