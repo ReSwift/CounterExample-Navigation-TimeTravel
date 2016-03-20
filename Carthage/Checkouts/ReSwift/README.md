@@ -2,17 +2,19 @@
 
 [![Build Status](https://img.shields.io/travis/ReSwift/ReSwift/master.svg?style=flat-square)](https://travis-ci.org/ReSwift/ReSwift) [![Code coverage status](https://img.shields.io/codecov/c/github/ReSwift/ReSwift.svg?style=flat-square)](http://codecov.io/github/ReSwift/ReSwift) [![CocoaPods Compatible](https://img.shields.io/cocoapods/v/ReSwift.svg?style=flat-square)](https://cocoapods.org/pods/ReSwift) [![Platform support](https://img.shields.io/badge/platform-ios%20%7C%20osx%20%7C%20tvos%20%7C%20watchos-lightgrey.svg?style=flat-square)](https://github.com/ReSwift/ReSwift/blob/master/LICENSE.md) [![License MIT](https://img.shields.io/badge/license-MIT-blue.svg?style=flat-square)](https://github.com/ReSwift/ReSwift/blob/master/LICENSE.md)
 
-**This library is a pre-release. Expect missing docs and breaking API changes.**
+# Introduction
 
-ReSwift is a [Redux](https://github.com/rackt/redux)-like implementation of the unidirectional data flow architecture in Swift. It embraces a unidirectional data flow that only allows state mutations through declarative actions.
+ReSwift is a [Redux](https://github.com/reactjs/redux)-like implementation of the unidirectional data flow architecture in Swift. ReSwift helps you to separate three important concerns of your app's components:
 
-### Merge announcement:
+- **State**: in a ReSwift app the entire app state is explicitly stored in a data structure. This helps avoid complicated state management code, enables better debugging and has many, many more benefits...
+- **Views**: in a ReSwift app your views update when your state changes. Your views become simple visualizations of the current app state.
+- **State Changes**: in a ReSwift app you can only perform state changes through actions. Actions are small pieces of data that describe a state change. By drastically limiting the way state can be mutated, your app becomes easier to understand and it gets easier to work with many collaborators.
 
-**ReduxKit** and **Swift-Flow** have joined forces! The result is **ReSwift**.
+The ReSwift library is tiny allowing users to dive into the code, understand every single line and [hopefully contribute](#contributing). 
 
-_The nitty gritty_: We decided to deprecate [ReduxKit](https://github.com/ReduxKit/ReduxKit) and keep it as a reference implementation of how an almost exact Redux implementation in Swift can be accomplished. It will no longer be actively maintained, but PRs are still welcome.
+ReSwift is quickly growing beyond the core library, providing experimental extensions for routing and time traveling through past app states!
 
-Swift-Flow has adopted the name **ReSwift** and moved to it's new home as a nod to it's Redux roots that remain at it's core. Going forward, our combined efforts will be focused on ReSwift and surrounding tooling.
+Excited? So are we 🎉
 
 # Table of Contents
 
@@ -21,9 +23,11 @@ Swift-Flow has adopted the name **ReSwift** and moved to it's new home as a nod 
 - [Getting Started Guide](#getting-started-guide)
 - [Installation](#installation)
 - [Testing](#testing)
+- [Checking Out Source Code](#checking-out-source-code)
 - [Demo](#demo)
 - [Extensions](#extensions)
 - [Example Projects](#example-projects)
+- [Contributing](#contributing)
 - [Credits](#credits)
 - [Get in touch](#get-in-touch)
 
@@ -34,7 +38,7 @@ ReSwift relies on a few principles:
 - **Actions** are a declarative way of describing a state change. Actions don't contain any code, they are consumed by the store and forwarded to reducers. Reducers will handle the actions by implementing a different state change for each action.
 - **Reducers** provide pure functions, that based on the current action and the current app state, create a new app state
 
-![](Readme/Assets/reswift_concept.png)
+![](Docs/img/reswift_concept.png)
 
 For a very simple app, that maintains a counter that can be increased and decreased, you can define the app state as following:
 
@@ -44,7 +48,7 @@ struct AppState: StateType {
 }
 ```
 
-You would also define two actions, one for increasing and one for decreasing the counter. In the [Getting Started Guide](Readme/GettingStarted.md) you can find out how to construct complex actions. For the simple actions in this example we can define empty structs that conform to action:
+You would also define two actions, one for increasing and one for decreasing the counter. In the [Getting Started Guide](http://reswift.github.io/ReSwift/master/getting-started-guide.html) you can find out how to construct complex actions. For the simple actions in this example we can define empty structs that conform to action:
 
 ```swift
 struct CounterActionIncrease: Action {}
@@ -56,7 +60,9 @@ Your reducer needs to respond to these different action types, that can be done 
 ```swift
 struct CounterReducer: Reducer {
 
-    func handleAction(var state: AppState, action: Action) -> AppState {
+    func handleAction(action: Action, state: AppState?) -> AppState {
+        var state = state ?? AppState()
+
         switch action {
         case _ as CounterActionIncrease:
             state.counter += 1
@@ -137,7 +143,7 @@ The ReSwift tooling is still in a very early stage, but aforementioned prospects
 
 # Getting Started Guide
 
-[A Getting Started Guide that describes the core components of apps built with ReSwift lives here](Readme/GettingStarted.md). It will be expanded in the next few weeks. To get an understanding of the core principles I recommend reading the brilliant [redux documentation](http://rackt.org/redux/).
+[A Getting Started Guide that describes the core components of apps built with ReSwift lives here](http://reswift.github.io/ReSwift/master/getting-started-guide.html). It will be expanded in the next few weeks. To get an understanding of the core principles we recommend reading the brilliant [redux documentation](http://rackt.org/redux/).
 
 # Installation
 
@@ -156,13 +162,15 @@ And run `pod install`.
 
 ## Carthage
 
-You can install ReSwift via [Carthage]() by adding the following line to your Cartfile:
+You can install ReSwift via [Carthage](https://github.com/Carthage/Carthage) by adding the following line to your Cartfile:
 
     github "ReSwift/ReSwift"
 
-# Checking out Source Code and Running Tests
+# Checking out Source Code
 
-Due to an [issue in Nimble](https://github.com/Quick/Nimble/issues/213) at the moment, tvOS tests will fail if building Nimble / Quick from source. You can however install Nimble & Quick from binaries then rebuild OSX & iOS only. After checkout, run the following from the terminal:
+After cloning this repository you need to use carthage to install testing frameworks that ReSwift depends on.
+
+Due to an [issue in Nimble](https://github.com/Quick/Nimble/issues/213) at the moment, tvOS tests will fail if building Nimble / Quick from source. You can however install Nimble & Quick from binaries then rebuild OS X & iOS only. After checkout, run the following from the terminal:
 
 ```bash
 carthage bootstrap && carthage bootstrap --no-use-binaries --platform ios,osx
@@ -172,7 +180,7 @@ carthage bootstrap && carthage bootstrap --no-use-binaries --platform ios,osx
 
 Using this library you can implement apps that have an explicit, reproducible state, allowing you, among many other things, to replay and rewind the app state, as shown below:
 
-![](Readme/Assets/timetravel.gif)
+![](Docs/img/timetravel.gif)
 
 # Extensions
 
@@ -184,13 +192,12 @@ This repository contains the core component for ReSwift, the following extension
 # Example Projects
 
 - [CounterExample](https://github.com/ReSwift/CounterExample-Navigation-TimeTravel): A very simple counter app implemented with ReSwift. This app also demonstrates the basics of routing with ReSwiftRouter.
-- [Meet](https://github.com/Ben-G/Meet): A real world application being built with ReSwift - currently still very early on.
+- [GitHubBrowserExample](https://github.com/ReSwift/GitHubBrowserExample): A real world example, involving authentication, network requests and navigation. Still WIP but should be the best resource for starting to adapt `ReSwift` in your own app.
+- [Meet](https://github.com/Ben-G/Meet): A real world application being built with ReSwift - currently still very early on. It is not up to date with the latest version of ReSwift, but is the best project for demonstrating time travel.
 
 # Contributing
 
-There's still a lot of work to do here! I would love to see you involved! Some design decisions for the core of ReSwift are still up in the air (see issues), there's lots of useful documentation that can be written and a ton of extensions and tools are waiting to be built on top of ReSwift.
-
-I personally think the best way to get started contributing to this library is by using it in one of your projects!
+There's still a lot of work to do here! We would love to see you involved! You can find all the details on how to get started in the [Contributing Guide](/CONTRIBUTING.md).
 
 # Credits
 
@@ -198,4 +205,8 @@ I personally think the best way to get started contributing to this library is b
 
 # Get in touch
 
-If you have any questions, you can find me on twitter [@benjaminencz](https://twitter.com/benjaminencz).
+If you have any questions, you can find the core team on twitter:
+
+- [@benjaminencz](https://twitter.com/benjaminencz)
+- [@karlbowden](https://twitter.com/karlbowden)
+- [@ARendtslev](https://twitter.com/ARendtslev)

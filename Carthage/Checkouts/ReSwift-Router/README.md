@@ -24,7 +24,7 @@ This requires to store the current navigation state within the app state and to 
 #Installation
 
 
-##Cocoapods
+##CocoaPods
 
 You can install ReSwiftRouter via CocoaPods by adding it to your `Podfile`:
 
@@ -46,21 +46,23 @@ You can install ReSwiftRouter via [Carthage]() by adding the following line to y
 
 #Configuration
 
-Extend your app state to include the navigation state by conforming to the `HasNavigationState` protocol and adding the a `navigationState` member as follows:
+Extend your app state to include the navigation state:
 
 ```swift
 import ReSwiftRouter
 
-struct AppState: StateType, HasNavigationState {
+struct AppState: StateType {
     // other application state
-    var navigationState = NavigationState()
+    var navigationState: NavigationState
 }
 ```
 
-After you've initialized your store, create an instance of `Router`, passing in a reference to the store and to the root `Routable`:
+After you've initialized your store, create an instance of `Router`, passing in a reference to the store and to the root `Routable`. Additionally you will need to provide a closure that describes how to access the `navigationState` of your application state:
 
 ```swift
-router = Router(store: mainStore, rootRoutable: RootRoutable(routable: rootViewController))
+router = Router(store: mainStore, rootRoutable: RootRoutable(routable: rootViewController)) { state in 
+	state.navigationState
+}
 ```
 
 We'll discuss `Routable` in the next main section.
@@ -120,7 +122,7 @@ If your navigation stack uses a modal presentation for this transition, the impl
 func pushRouteSegment(identifier: RouteElementIdentifier,
     completionHandler: RoutingCompletionHandler) -> Routable {
     
-	if identifier == "Home" {
+	if identifier == "User" {
 		// 1.) Perform the transition
         userViewController = UIStoryboard(name: "Main", bundle: nil)
             .instantiateViewControllerWithIdentifier("UserViewController") as! Routable

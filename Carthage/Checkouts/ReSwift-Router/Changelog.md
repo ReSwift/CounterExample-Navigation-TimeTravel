@@ -1,12 +1,35 @@
-#Upcoming Release
+#0.2.6
+
+*Released: 03/20/2015*
+
+**API Changes:**
+
+- Provide route action that allows chosing between animated and un-animated route changes - @Ben-G
+- Provide API for setting associated data for a certain route. This enables passing state information to subroutes - @Ben-G
+
+**Other:**:
+
+- Update ReSwift Dependency to 1.0 - @Ben-G
+- Use a symbolic breakpoint in place of an `assertionFailure` for handling a stuck router - @Ben-G
+- Documentation Fix - @jschmid
+
+#0.2.5
+
+*Released: 02/22/2015*
+
+**API Changes:**
+- ReSwift-Router now uses the new substate selection API when subscribing to a store. As a result, the `HasNavigationState` protocol has been removed. This change also allows an app to have multiple routers. - @Ben-G
 
 #0.2.4
 
 *Released: 01/23/2015*
 
-**Other:**
+**API Changes:**
 
 - Due to the new requirement in ReSwift, that top level reducers need to be able to take an empty application state and return a hydrated one, `NavigationReducer` is no longer a top-level reducer. You now need to call it from within your app reducer. Refer to the docs for more details. - @Ben-G
+
+**Other:**
+
 - Drop iOS Deployment target to 8.0 - @Ben-G
 - Add Support for watchOS, tvOS, OSX - @Ben-G
 - Documentation updates - @Ben-G
