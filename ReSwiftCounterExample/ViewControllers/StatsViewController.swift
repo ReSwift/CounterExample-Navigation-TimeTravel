@@ -17,6 +17,7 @@ class StatsViewController: UIViewController, Routable {
     var infoViewController: Routable!
 
     func pushRouteSegment(viewControllerIdentifier: RouteElementIdentifier,
+        animated: Bool,
         completionHandler: RoutingCompletionHandler) -> Routable {
 
             infoViewController = UIStoryboard(name: "Main", bundle: nil)
@@ -29,6 +30,7 @@ class StatsViewController: UIViewController, Routable {
     }
 
     func popRouteSegment(identifier: RouteElementIdentifier,
+        animated: Bool,
         completionHandler: RoutingCompletionHandler) {
 
         dismissViewControllerAnimated(false, completion: completionHandler)

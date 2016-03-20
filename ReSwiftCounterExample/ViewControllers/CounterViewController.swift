@@ -39,5 +39,5 @@ class CounterViewController: UIViewController, StoreSubscriber, Routable {
             CounterActionDecrease()
         )
     }
-    
+
 }

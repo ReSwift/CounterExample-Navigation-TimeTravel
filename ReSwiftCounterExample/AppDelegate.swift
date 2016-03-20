@@ -39,7 +39,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         tabBarController.delegate = self
         rootViewController = tabBarController
 
-        router = Router(store: mainStore, rootRoutable: RootRoutable(routable: rootViewController))
+        router = Router(store: mainStore, rootRoutable: RootRoutable(routable: rootViewController)) { state in
+            state.navigationState
+        }
 
         mainStore.dispatch { state, store in
                 if state.navigationState.route == [] {
@@ -73,12 +75,14 @@ class RootRoutable: Routable {
     }
 
     func pushRouteSegment(routeElementIdentifier: RouteElementIdentifier,
+        animated: Bool,
         completionHandler: RoutingCompletionHandler) -> Routable {
             completionHandler()
             return routable
     }
 
     func popRouteSegment(routeElementIdentifier: RouteElementIdentifier,
+        animated: Bool,
         completionHandler: RoutingCompletionHandler) {
             completionHandler()
     }
@@ -109,6 +113,7 @@ extension UITabBarController: Routable {
 
     public func changeRouteSegment(fromSegment: RouteElementIdentifier,
         to: RouteElementIdentifier,
+        animated: Bool,
         completionHandler: RoutingCompletionHandler) -> Routable {
             if (to == CounterViewController.identifier) {
                 selectedIndex = 0
@@ -123,14 +128,15 @@ extension UITabBarController: Routable {
             abort()
     }
 
-    public func pushRouteSegment(identifier: RouteElementIdentifier,
-        completionHandler: RoutingCompletionHandler)
-        -> Routable {
-            if (identifier == CounterViewController.identifier) {
+    public func pushRouteSegment(
+        routeElementIdentifier: RouteElementIdentifier,
+        animated: Bool,
+        completionHandler: RoutingCompletionHandler) -> Routable {
+            if (routeElementIdentifier == CounterViewController.identifier) {
                 selectedIndex = 0
                 completionHandler()
                 return viewControllers![0] as! Routable
-            } else if (identifier == StatsViewController.identifier) {
+            } else if (routeElementIdentifier == StatsViewController.identifier) {
                 selectedIndex = 1
                 completionHandler()
                 return viewControllers![1] as! Routable
@@ -140,6 +146,7 @@ extension UITabBarController: Routable {
     }
 
     public func popRouteSegment(viewControllerIdentifier: RouteElementIdentifier,
+        animated: Bool,
         completionHandler: RoutingCompletionHandler) {
             // would need to unset root view controller here
             completionHandler()
