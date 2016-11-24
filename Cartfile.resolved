@@ -1,3 +1,3 @@
 github "ReSwift/ReSwift" "3.0.0"
-github "ReSwift/ReSwift-Recorder" "b8cc8bf435fe88068387851704c702a8339e539d"
+github "ReSwift/ReSwift-Recorder" "0.4.0"
 github "ReSwift/ReSwift-Router" "0.5.1"
