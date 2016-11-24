@@ -11,11 +11,13 @@ import ReSwift
 public typealias RouteElementIdentifier = String
 public typealias Route = [RouteElementIdentifier]
 
+/// A `Hashable` and `Equatable` presentation of a route.
+/// Can be used to check two routes for equality.
 public struct RouteHash: Hashable {
     let routeHash: String
 
-    init(route: Route) {
-        self.routeHash = route.joinWithSeparator("/")
+    public init(route: Route) {
+        self.routeHash = route.joined(separator: "/")
     }
 
     public var hashValue: Int { return self.routeHash.hashValue }
@@ -34,7 +36,7 @@ public struct NavigationState {
 }
 
 extension NavigationState {
-    public func getRouteSpecificState<T>(route: Route) -> T? {
+    public func getRouteSpecificState<T>(_ route: Route) -> T? {
         let hash = RouteHash(route: route)
 
         return self.routeSpecificState[hash] as? T

@@ -14,7 +14,7 @@ struct AppReducer: Reducer {
 
     func handleAction(action: Action, state: AppState?) -> AppState {
         return AppState(
-            counter: counterReducer(action, counter: state?.counter),
+            counter: counterReducer(action: action, counter: state?.counter),
             navigationState: NavigationReducer.handleAction(action, state: state?.navigationState)
         )
     }

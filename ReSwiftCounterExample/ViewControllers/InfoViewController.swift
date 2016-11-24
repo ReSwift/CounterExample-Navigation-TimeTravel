@@ -14,7 +14,8 @@ class InfoViewController: UIViewController, Routable {
 
     static let identifier = "InfoViewController"
 
-    @IBAction func cancelButtonTapped(sender: UIButton) {
+    @IBAction func cancelButtonTapped(_ sender: Any) {
+
         mainStore.dispatch(
             SetRouteAction(["TabBarViewController", StatsViewController.identifier])
         )
