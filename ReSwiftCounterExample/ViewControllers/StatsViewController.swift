@@ -16,30 +16,30 @@ class StatsViewController: UIViewController, Routable {
 
     var infoViewController: Routable!
 
-    func pushRouteSegment(viewControllerIdentifier: RouteElementIdentifier,
+    func pushRouteSegment(_ viewControllerIdentifier: RouteElementIdentifier,
         animated: Bool,
-        completionHandler: RoutingCompletionHandler) -> Routable {
+        completionHandler: @escaping RoutingCompletionHandler) -> Routable {
 
             infoViewController = UIStoryboard(name: "Main", bundle: nil)
-                .instantiateViewControllerWithIdentifier("InfoViewController") as! Routable
+                .instantiateViewController(withIdentifier: "InfoViewController") as! Routable
 
-            presentViewController(infoViewController as! UIViewController, animated: false,
+            present(infoViewController as! UIViewController, animated: false,
                 completion: completionHandler)
 
             return infoViewController
     }
 
-    func popRouteSegment(identifier: RouteElementIdentifier,
+    func popRouteSegment(_ identifier: RouteElementIdentifier,
         animated: Bool,
-        completionHandler: RoutingCompletionHandler) {
+        completionHandler: @escaping RoutingCompletionHandler) {
 
-        dismissViewControllerAnimated(false, completion: completionHandler)
+        dismiss(animated: false, completion: completionHandler)
     }
 
-    @IBAction func pushButtonTapped(sender: UIButton) {
-        mainStore.dispatch(
+    @IBAction func pushButtonTapped(_ sender: Any) {
+        _ = mainStore.dispatch(
             SetRouteAction(["TabBarViewController", StatsViewController.identifier,
-                    InfoViewController.identifier])
+                            InfoViewController.identifier])
         )
     }
 

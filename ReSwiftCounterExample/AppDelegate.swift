@@ -28,12 +28,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var counterViewController: UIViewController!
     var statsViewController: UIViewController!
 
-    func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
+    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey : Any]? = nil) -> Bool {
+
         let tabBarController = UITabBarController()
         counterViewController = UIStoryboard(name: "Main", bundle: nil)
-            .instantiateViewControllerWithIdentifier("CounterViewController")
+            .instantiateViewController(withIdentifier: "CounterViewController")
         statsViewController = UIStoryboard(name: "Main", bundle: nil)
-            .instantiateViewControllerWithIdentifier("StatsViewController")
+            .instantiateViewController(withIdentifier: "StatsViewController")
 
         tabBarController.viewControllers = [counterViewController, statsViewController]
         tabBarController.delegate = self
@@ -44,23 +45,23 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
 
         mainStore.dispatch { state, store in
-                if state.navigationState.route == [] {
-                    return SetRouteAction(["TabBarViewController", StatsViewController.identifier,
-                            InfoViewController.identifier])
-                } else {
-                    return nil
-                }
+            if state.navigationState.route == [] {
+                return SetRouteAction(["TabBarViewController", StatsViewController.identifier,
+                                       InfoViewController.identifier])
+            } else {
+                return nil
+            }
         }
 
 
 
-        window = UIWindow(frame: UIScreen.mainScreen().bounds)
+        window = UIWindow(frame: UIScreen.main.bounds)
         window?.rootViewController = tabBarController
         window?.makeKeyAndVisible()
 
         mainStore.rewindControlYOffset = 150
         mainStore.window = window
-
+        
         return true
     }
 
@@ -74,16 +75,19 @@ class RootRoutable: Routable {
         self.routable = routable
     }
 
-    func pushRouteSegment(routeElementIdentifier: RouteElementIdentifier,
+    public func pushRouteSegment(
+        _ routeElementIdentifier: RouteElementIdentifier,
         animated: Bool,
-        completionHandler: RoutingCompletionHandler) -> Routable {
-            completionHandler()
-            return routable
+        completionHandler: @escaping RoutingCompletionHandler
+    ) -> Routable {
+        completionHandler()
+        return self.routable
     }
 
-    func popRouteSegment(routeElementIdentifier: RouteElementIdentifier,
+    public func popRouteSegment(
+        _ routeElementIdentifier: RouteElementIdentifier,
         animated: Bool,
-        completionHandler: RoutingCompletionHandler) {
+        completionHandler: @escaping RoutingCompletionHandler) {
             completionHandler()
     }
 
@@ -91,8 +95,8 @@ class RootRoutable: Routable {
 
 extension AppDelegate: UITabBarControllerDelegate {
 
-    func tabBarController(tabBarController: UITabBarController,
-        shouldSelectViewController viewController: UIViewController) -> Bool {
+    func tabBarController(_ tabBarController: UITabBarController,
+        shouldSelect viewController: UIViewController) -> Bool {
 
         if viewController is CounterViewController {
             mainStore.dispatch(
@@ -111,10 +115,10 @@ extension AppDelegate: UITabBarControllerDelegate {
 
 extension UITabBarController: Routable {
 
-    public func changeRouteSegment(fromSegment: RouteElementIdentifier,
+    public func changeRouteSegment(_ fromSegment: RouteElementIdentifier,
         to: RouteElementIdentifier,
         animated: Bool,
-        completionHandler: RoutingCompletionHandler) -> Routable {
+        completionHandler: @escaping RoutingCompletionHandler) -> Routable {
             if (to == CounterViewController.identifier) {
                 selectedIndex = 0
                 completionHandler()
@@ -129,9 +133,9 @@ extension UITabBarController: Routable {
     }
 
     public func pushRouteSegment(
-        routeElementIdentifier: RouteElementIdentifier,
+        _ routeElementIdentifier: RouteElementIdentifier,
         animated: Bool,
-        completionHandler: RoutingCompletionHandler) -> Routable {
+        completionHandler: @escaping RoutingCompletionHandler) -> Routable {
             if (routeElementIdentifier == CounterViewController.identifier) {
                 selectedIndex = 0
                 completionHandler()
@@ -145,9 +149,9 @@ extension UITabBarController: Routable {
             abort()
     }
 
-    public func popRouteSegment(viewControllerIdentifier: RouteElementIdentifier,
+    public func popRouteSegment(_ viewControllerIdentifier: RouteElementIdentifier,
         animated: Bool,
-        completionHandler: RoutingCompletionHandler) {
+        completionHandler: @escaping RoutingCompletionHandler) {
             // would need to unset root view controller here
             completionHandler()
     }
