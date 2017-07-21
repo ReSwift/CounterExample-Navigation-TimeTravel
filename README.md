@@ -1,4 +1,4 @@
-#ReSwift Counter Example
+# ReSwift Counter Example
 
 An extremely simple example app, being built with [ReSwift](https://github.com/ReSwift/ReSwift). This app utilizes ReSwift, ReSwift-Router and ReSwift-Recorder - this allows you to time travel back through the application, including the entire navigation history.
 
