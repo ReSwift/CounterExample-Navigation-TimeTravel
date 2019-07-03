@@ -21,7 +21,7 @@ class StatsViewController: UIViewController, Routable {
         completionHandler: @escaping RoutingCompletionHandler) -> Routable {
 
             infoViewController = UIStoryboard(name: "Main", bundle: nil)
-                .instantiateViewController(withIdentifier: "InfoViewController") as! Routable
+                .instantiateViewController(withIdentifier: "InfoViewController") as? Routable
 
             present(infoViewController as! UIViewController, animated: false,
                 completion: completionHandler)
