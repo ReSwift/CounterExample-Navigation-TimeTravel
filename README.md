@@ -1,3 +1,6 @@
+![Swift 5.0](https://img.shields.io/badge/Swift-5.0-blue.svg?style=flat)
+![License](https://img.shields.io/github/license/ReSwift/CounterExample-Navigation-TimeTravel.svg?style=flat)
+
 # ReSwift Counter Example
 
 An extremely simple example app, being built with [ReSwift](https://github.com/ReSwift/ReSwift).
