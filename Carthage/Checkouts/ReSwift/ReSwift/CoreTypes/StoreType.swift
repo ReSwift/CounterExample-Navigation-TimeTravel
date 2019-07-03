@@ -6,24 +6,15 @@
 //  Copyright © 2015 DigiTales. All rights reserved.
 //
 
-import Foundation
-
 /**
  Defines the interface of Stores in ReSwift. `Store` is the default implementation of this
  interface. Applications have a single store that stores the entire application state.
  Stores receive actions and use reducers combined with these actions, to calculate state changes.
  Upon every state update a store informs all of its subscribers.
  */
-public protocol StoreType {
+public protocol StoreType: DispatchingStoreType {
 
     associatedtype State: StateType
-
-    /// Initializes the store with a reducer and an intial state.
-    init(reducer: AnyReducer, state: State?)
-
-    /// Initializes the store with a reducer, an initial state and a list of middleware.
-    /// Middleware is applied in the order in which it is passed into this constructor.
-    init(reducer: AnyReducer, state: State?, middleware: [Middleware])
 
     /// The current state stored in the store.
     var state: State! { get }
@@ -40,8 +31,25 @@ public protocol StoreType {
      state in this store changes.
 
      - parameter subscriber: Subscriber that will receive store updates
+     - note: Subscriptions are not ordered, so an order of state updates cannot be guaranteed.
      */
     func subscribe<S: StoreSubscriber>(_ subscriber: S) where S.StoreSubscriberStateType == State
+
+    /**
+     Subscribes the provided subscriber to this store.
+     Subscribers will receive a call to `newState` whenever the
+     state in this store changes and the subscription decides to forward
+     state update.
+
+     - parameter subscriber: Subscriber that will receive store updates
+     - parameter transform: A closure that receives a simple subscription and can return a
+       transformed subscription. Subscriptions can be transformed to only select a subset of the
+       state, or to skip certain state updates.
+     - note: Subscriptions are not ordered, so an order of state updates cannot be guaranteed.
+     */
+    func subscribe<SelectedState, S: StoreSubscriber>(
+        _ subscriber: S, transform: ((Subscription<State>) -> Subscription<SelectedState>)?
+    ) where S.StoreSubscriberStateType == SelectedState
 
     /**
      Unsubscribes the provided subscriber. The subscriber will no longer
@@ -50,21 +58,6 @@ public protocol StoreType {
      - parameter subscriber: Subscriber that will be unsubscribed
      */
     func unsubscribe(_ subscriber: AnyStoreSubscriber)
-
-    /**
-     Dispatches an action. This is the simplest way to modify the stores state.
-
-     Example of dispatching an action:
-
-     ```
-     store.dispatch( CounterAction.IncreaseCounter )
-     ```
-
-     - parameter action: The action that is being dispatched to the store
-     - returns: By default returns the dispatched action, but middlewares can change the
-     return type, e.g. to return promises
-     */
-    func dispatch(_ action: Action) -> Any
 
     /**
      Dispatches an action creator to the store. Action creators are functions that generate
@@ -95,11 +88,8 @@ public protocol StoreType {
      ```
      store.dispatch( noteActionCreatore.deleteNote(3) )
      ```
-
-     - returns: By default returns the dispatched action, but middlewares can change the
-     return type, e.g. to return promises
      */
-    func dispatch(_ actionCreator: ActionCreator) -> Any
+    func dispatch(_ actionCreator: ActionCreator)
 
     /**
      Dispatches an async action creator to the store. An async action creator generates an
@@ -119,7 +109,6 @@ public protocol StoreType {
      be called
      */
     func dispatch(_ asyncActionCreator: AsyncActionCreator, callback: DispatchCallback?)
-
 
     /**
      An optional callback that can be passed to the `dispatch` method.

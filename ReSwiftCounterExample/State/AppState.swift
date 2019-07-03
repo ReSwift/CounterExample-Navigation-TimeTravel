@@ -11,6 +11,6 @@ import ReSwift
 import ReSwiftRouter
 
 struct AppState: StateType, HasNavigationState {
-    var counter: Int
-    var navigationState: NavigationState
+    var counter: Int = 0
+    var navigationState: NavigationState = NavigationState()
 }

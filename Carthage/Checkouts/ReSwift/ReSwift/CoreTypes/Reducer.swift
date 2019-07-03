@@ -6,20 +6,5 @@
 //  Copyright © 2015 Benjamin Encz. All rights reserved.
 //
 
-import Foundation
-
-public protocol AnyReducer {
-    func _handleAction(action: Action, state: StateType?) -> StateType
-}
-
-public protocol Reducer: AnyReducer {
-    associatedtype ReducerStateType
-
-    func handleAction(action: Action, state: ReducerStateType?) -> ReducerStateType
-}
-
-extension Reducer {
-    public func _handleAction(action: Action, state: StateType?) -> StateType {
-        return withSpecificTypes(action, state: state, function: handleAction)
-    }
-}
+public typealias Reducer<ReducerStateType> =
+    (_ action: Action, _ state: ReducerStateType?) -> ReducerStateType

@@ -8,15 +8,9 @@
 
 import UIKit
 import ReSwift
-import ReSwiftRecorder
 import ReSwiftRouter
 
-var mainStore = RecordingMainStore<AppState>(
-        reducer: AppReducer(),
-        state: nil,
-        typeMaps:[counterActionTypeMap, ReSwiftRouter.typeMap],
-        recording: "recording.json"
-    )
+var mainStore = Store<AppState>(reducer: AppReducer, state: AppState())
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -28,8 +22,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var counterViewController: UIViewController!
     var statsViewController: UIViewController!
 
-    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey : Any]? = nil) -> Bool {
-
+    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil) -> Bool {
         let tabBarController = UITabBarController()
         counterViewController = UIStoryboard(name: "Main", bundle: nil)
             .instantiateViewController(withIdentifier: "CounterViewController")
@@ -41,26 +34,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         rootViewController = tabBarController
 
         router = Router(store: mainStore, rootRoutable: RootRoutable(routable: rootViewController)) { state in
-            state.navigationState
+            state.select { $0.navigationState }
         }
-
-        mainStore.dispatch { state, store in
-            if state.navigationState.route == [] {
-                return SetRouteAction(["TabBarViewController", StatsViewController.identifier,
-                                       InfoViewController.identifier])
-            } else {
-                return nil
-            }
-        }
-
-
 
         window = UIWindow(frame: UIScreen.main.bounds)
         window?.rootViewController = tabBarController
         window?.makeKeyAndVisible()
-
-        mainStore.rewindControlYOffset = 150
-        mainStore.window = window
         
         return true
     }

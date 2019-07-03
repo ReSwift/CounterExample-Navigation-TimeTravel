@@ -1,8 +1,9 @@
 # ReSwift
 
-[![Build Status](https://img.shields.io/travis/ReSwift/ReSwift/master.svg?style=flat-square)](https://travis-ci.org/ReSwift/ReSwift) [![Code coverage status](https://img.shields.io/codecov/c/github/ReSwift/ReSwift.svg?style=flat-square)](http://codecov.io/github/ReSwift/ReSwift) [![CocoaPods Compatible](https://img.shields.io/cocoapods/v/ReSwift.svg?style=flat-square)](https://cocoapods.org/pods/ReSwift) [![Platform support](https://img.shields.io/badge/platform-ios%20%7C%20osx%20%7C%20tvos%20%7C%20watchos-lightgrey.svg?style=flat-square)](https://github.com/ReSwift/ReSwift/blob/master/LICENSE.md) [![License MIT](https://img.shields.io/badge/license-MIT-blue.svg?style=flat-square)](https://github.com/ReSwift/ReSwift/blob/master/LICENSE.md)
+[![Build Status](https://img.shields.io/travis/ReSwift/ReSwift/master.svg?style=flat-square)](https://travis-ci.org/ReSwift/ReSwift) [![Code coverage status](https://img.shields.io/codecov/c/github/ReSwift/ReSwift.svg?style=flat-square)](http://codecov.io/github/ReSwift/ReSwift) [![CocoaPods Compatible](https://img.shields.io/cocoapods/v/ReSwift.svg?style=flat-square)](https://cocoapods.org/pods/ReSwift) [![Platform support](https://img.shields.io/badge/platform-ios%20%7C%20osx%20%7C%20tvos%20%7C%20watchos-lightgrey.svg?style=flat-square)](https://github.com/ReSwift/ReSwift/blob/master/LICENSE.md) [![License MIT](https://img.shields.io/badge/license-MIT-blue.svg?style=flat-square)](https://github.com/ReSwift/ReSwift/blob/master/LICENSE.md) [![Reviewed by Hound](https://img.shields.io/badge/Reviewed_by-Hound-8E64B0.svg?style=flat-square)](https://houndci.com)
 
-**Supported Swift Version:**: Swift 3.0.1
+**Supported Swift Versions:** Swift 3.2, 4.0
+
 For Swift 2.2 Support use [Release 2.0.0](https://github.com/ReSwift/ReSwift/releases/tag/2.0.0) or earlier.
 
 # Introduction
@@ -27,7 +28,6 @@ Check out our [public gitter chat!](https://gitter.im/ReSwift/public)
 - [Why ReSwift?](#why-reswift)
 - [Getting Started Guide](#getting-started-guide)
 - [Installation](#installation)
-- [Testing](#testing)
 - [Checking Out Source Code](#checking-out-source-code)
 - [Demo](#demo)
 - [Extensions](#extensions)
@@ -63,23 +63,19 @@ struct CounterActionDecrease: Action {}
 Your reducer needs to respond to these different action types, that can be done by switching over the type of action:
 
 ```swift
-struct CounterReducer: Reducer {
+func counterReducer(action: Action, state: AppState?) -> AppState {
+    var state = state ?? AppState()
 
-    func handleAction(action: Action, state: AppState?) -> AppState {
-        var state = state ?? AppState()
-
-        switch action {
-        case _ as CounterActionIncrease:
-            state.counter += 1
-        case _ as CounterActionDecrease:
-            state.counter -= 1
-        default:
-            break
-        }
-
-        return state
+    switch action {
+    case _ as CounterActionIncrease:
+        state.counter += 1
+    case _ as CounterActionDecrease:
+        state.counter -= 1
+    default:
+        break
     }
 
+    return state
 }
 ```
 In order to have a predictable app state, it is important that the reducer is always free of side effects, it receives the current app state and an action and returns the new app state.
@@ -88,7 +84,7 @@ To maintain our state and delegate the actions to the reducers, we need a store.
 
 ```swift
 let mainStore = Store<AppState>(
-	reducer: CounterReducer(),
+	reducer: counterReducer,
 	state: nil
 )
 
@@ -106,11 +102,11 @@ class CounterViewController: UIViewController, StoreSubscriber {
 
     @IBOutlet var counterLabel: UILabel!
 
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         mainStore.subscribe(self)
     }
 
-    override func viewWillDisappear(animated: Bool) {
+    override func viewWillDisappear(_ animated: Bool) {
         mainStore.unsubscribe(self)
     }
 
@@ -118,13 +114,13 @@ class CounterViewController: UIViewController, StoreSubscriber {
         counterLabel.text = "\(state.counter)"
     }
 
-    @IBAction func increaseButtonTapped(sender: UIButton) {
+    @IBAction func increaseButtonTapped(_ sender: UIButton) {
         mainStore.dispatch(
             CounterActionIncrease()
         )
     }
 
-    @IBAction func decreaseButtonTapped(sender: UIButton) {
+    @IBAction func decreaseButtonTapped(_ sender: UIButton) {
         mainStore.dispatch(
             CounterActionDecrease()
         )
@@ -163,32 +159,52 @@ The ReSwift tooling is still in a very early stage, but aforementioned prospects
 
 # Getting Started Guide
 
-[A Getting Started Guide that describes the core components of apps built with ReSwift lives here](http://reswift.github.io/ReSwift/master/getting-started-guide.html). It will be expanded in the next few weeks. To get an understanding of the core principles we recommend reading the brilliant [redux documentation](http://redux.js.org/).
+[A Getting Started Guide that describes the core components of apps built with ReSwift lives here](http://reswift.github.io/ReSwift/master/getting-started-guide.html).
+
+To get an understanding of the core principles we recommend reading the brilliant [redux documentation](http://redux.js.org/).
 
 # Installation
 
 ## CocoaPods
 
-You can install ReSwift via CocoaPods by adding it to your `Podfile`:
+You can install ReSwift via [CocoaPods](https://cocoapods.org/) by adding it to your `Podfile`:
+```
+use_frameworks!
 
-	use_frameworks!
+source 'https://github.com/CocoaPods/Specs.git'
+platform :ios, '8.0'
 
-	source 'https://github.com/CocoaPods/Specs.git'
-	platform :ios, '8.0'
-
-	pod 'ReSwift'
+pod 'ReSwift'
+```
 
 And run `pod install`.
 
 ## Carthage
 
-You can install ReSwift via [Carthage](https://github.com/Carthage/Carthage) by adding the following line to your Cartfile:
+You can install ReSwift via [Carthage](https://github.com/Carthage/Carthage) by adding the following line to your `Cartfile`:
 
-    github "ReSwift/ReSwift"
+```
+github "ReSwift/ReSwift"
+```
+
+## Swift Package Manager
+
+You can install ReSwift via [Swift Package Manager](https://swift.org/package-manager/) by adding the following line to your `Package.swift`:
+
+```swift
+import PackageDescription
+
+let package = Package(
+    [...]
+    dependencies: [
+        .Package(url: "https://github.com/ReSwift/ReSwift.git", majorVersion: XYZ)
+    ]
+)
+```
 
 # Checking out Source Code
 
-ReSwift no longer has any carthage dependencies for development. Just checkout the project and run.
+After checking out the project run `pod install` to get the latest supported version of [SwiftLint](https://github.com/realm/SwiftLint), which we use to ensure a consistent style in the codebase.
 
 # Demo
 
@@ -200,17 +216,20 @@ Using this library you can implement apps that have an explicit, reproducible st
 
 This repository contains the core component for ReSwift, the following extensions are available:
 
+- [ReSwift-Thunk](https://github.com/ReSwift/ReSwift-Thunk): Provides a ReSwift middleware that lets you dispatch thunks (action creators) to encapsulate processes like API callbacks.
 - [ReSwift-Router](https://github.com/ReSwift/ReSwift-Router): Provides a ReSwift compatible Router that allows declarative routing in iOS applications
 - [ReSwift-Recorder](https://github.com/ReSwift/ReSwift-Recorder): Provides a `Store` implementation that records all `Action`s and allows for hot-reloading and time travel
 
 # Example Projects
 
-- [CounterExample](https://github.com/ReSwift/CounterExample): A very simple counter app implemented with ReSwift. 
+- [CounterExample](https://github.com/ReSwift/CounterExample): A very simple counter app implemented with ReSwift.
 - [CounterExample-Navigation-TimeTravel](https://github.com/ReSwift/CounterExample-Navigation-TimeTravel): This example builds on the simple CounterExample app, adding time travel with [ReSwiftRecorder](https://github.com/ReSwift/ReSwift-Recorder) and routing with [ReSwiftRouter](https://github.com/ReSwift/ReSwift-Router).
 - [GitHubBrowserExample](https://github.com/ReSwift/GitHubBrowserExample): A real world example, involving authentication, network requests and navigation. Still WIP but should be the best resource for starting to adapt `ReSwift` in your own app.
+- [ReduxMovieDB](https://github.com/cardoso/ReduxMovieDB): A simple App that queries the tmdb.org API to display the latest movies. Allows searching and viewing details.
 - [Meet](https://github.com/Ben-G/Meet): A real world application being built with ReSwift - currently still very early on. It is not up to date with the latest version of ReSwift, but is the best project for demonstrating time travel.
+- [Redux-Twitter](https://github.com/Goktug/Redux-Twitter): A basic Twitter search implementation built with ReSwift and RxSwift, involing Twitter authentication, network requests and navigation.
 
-##Production Apps with Open Source Code
+## Production Apps with Open Source Code
 
 - [Product Hunt for OS X](https://github.com/producthunt/producthunt-osx) Official Product Hunt client for OS X.
 
@@ -230,6 +249,7 @@ If you have any questions, you can find the core team on twitter:
 - [@karlbowden](https://twitter.com/karlbowden)
 - [@ARendtslev](https://twitter.com/ARendtslev)
 - [@ctietze](https://twitter.com/ctietze)
+- [@mjarvis](https://twitter.com/mjarvis)
 
 We also have a [public gitter chat!](https://gitter.im/ReSwift/public)
 
